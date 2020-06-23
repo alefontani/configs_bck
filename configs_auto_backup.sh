@@ -14,6 +14,8 @@
 #     /home/ale/configs_bck IN_MODIFY bash -c '/home/ale/configs_bck/configs_auto_backup.sh' ale
 #
 
+touch /home/ale/Desktop/partito
+
 # move in script directory (used if launched qith automatic tools e.g. incrontab
 # that run from another dir)
 cd "$(dirname "$0")"
