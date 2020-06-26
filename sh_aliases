@@ -17,22 +17,24 @@ export PATH="$PATH:$GOROOT/bin"
 ###############################################################################
 # BITBAKE
 ###############################################################################
+# alias bbend='xmessage -nearmouse "bitbake has finished for some reason"'
 alias bbend='for n in {1..2}; do bell; done ;xmessage -nearmouse \
             "bitbake has finished for some reason"'
 alias bbc='bitbake -c cleansstate'
-alias bbend='xmessage -nearmouse "bitbake has finished for some reason"'
 
 ###############################################################################
 # WINE
 ###############################################################################
-alias wine_tty='j=1 ;\
+alias wine_tty='set -x; \
+                j=1 ;\
                 for i in /dev/ttyUSB*; do \
                     sudo chmod 666 ${i} ;\
                     com_wine=~/.wine/dosdevices/com${j} ;\
                     rm ${com_wine} ;\
                     ln -s ${i} ${com_wine} ;\
                     j=$((j+1)) ;\
-                done'
+                done; \
+                set +x'
 
 ###############################################################################
 # COMANDI
@@ -46,7 +48,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || \
 alias bell='paplay /usr/share/sounds/ubuntu/stereo/system-ready.ogg'
 alias boilerplate='/media/ale/linuxdata/cpp_boilerplate/./start.sh'
 alias aggiorna='sudo apt update; sudo apt -y upgrade'
-alias cat="pygmentize -g"
+# alias cat="pygmentize -g"
 
 ###############################################################################
 # DESTINAZIONI
