@@ -149,19 +149,23 @@ function main()
 
   BRANCH="automatic"
 
-  git ls-remote >${TMP_ERROR} 2>&1
+  git ls-remote 2> ${TMP_ERROR}
   check_command $?
 
-  git checkout $BRANCH >${TMP_ERROR} 2>&1
+  do_log section "git checkout $BRANCH"
+  git checkout $BRANCH 2> ${TMP_ERROR}
   check_command $?
 
-  git add --all >${TMP_ERROR} 2>&1
+  do_log section "git add --all"
+  git add --all 2> ${TMP_ERROR}
   check_command $?
 
-  git commit -am "Automatic commit." >${TMP_ERROR} 2>&1
+  do_log section "git commit -am "Automatic commit.""
+  git commit -am "Automatic commit." 2> ${TMP_ERROR}
   check_command $?
 
-  git push origin $BRANCH >${TMP_ERROR} 2>&1
+  do_log section "git push origin $BRANCH"
+  git push origin $BRANCH 2> ${TMP_ERROR}
   check_command $?
 
 
