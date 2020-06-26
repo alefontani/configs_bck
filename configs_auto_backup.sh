@@ -69,7 +69,7 @@ function do_log() {
       echo -e "[$(date "+%H:%M:%S:%3N")]: ${PURPLE_COLOR} [CurlWarn] ${NORMAL_COLOR} $arg"
       ;;
     title)
-      echo -ne "${WHITE__COLOR}"
+      echo -ne "${GREEN__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       printf "%*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
