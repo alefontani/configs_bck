@@ -71,14 +71,14 @@ function do_log() {
     title)
       echo -ne "${GREEN__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
-      printf "%*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:  %*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       echo -ne "${NORMAL_COLOR}"
       ;;
     section)
       echo -ne "${WHITE__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
-      printf "%*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:  %*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
       echo -ne "${NORMAL_COLOR}"
       ;;
