@@ -51,7 +51,7 @@ function do_log() {
   #
 
   local arg="$2"
-  COLUMNS=$(tput cols)
+  COLUMNS=90
   case $1 in
     info)
       echo -e "[$(date "+%H:%M:%S:%3N")]:    ${NORMAL_COLOR}  [Info] ${NORMAL_COLOR} $arg"
