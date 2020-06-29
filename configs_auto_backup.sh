@@ -85,7 +85,7 @@ function do_log() {
       echo -ne "${NORMAL_COLOR}"
       ;;
     good_exit)
-      echo -ne "${RED____COLOR}"
+      echo -ne "${GREEN__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       printf "[$(date "+%H:%M:%S:%3N")]:     %s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
