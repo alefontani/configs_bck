@@ -73,21 +73,21 @@ function do_log() {
     title)
       echo -ne "${GREEN__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
-      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:     %s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       echo -ne "${NORMAL_COLOR}"
       ;;
     bad_exit)
       echo -ne "${RED____COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
-      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:     %s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       echo -ne "${NORMAL_COLOR}"
       ;;
     section)
       echo -ne "${WHITE__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
-      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:     %s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
       echo -ne "${NORMAL_COLOR}"
       ;;
@@ -157,8 +157,6 @@ function main()
   do_init
 
   do_log title "Starting $SCRIPTNAME"
-
-  touch /home/ale/Desktop/configs_auto_backup_partito
 
   if [ $(git status --porcelain | wc -l) -eq "0" ]; then
     do_log info "Git repo is clean. Exiting."
