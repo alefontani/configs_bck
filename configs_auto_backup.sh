@@ -84,6 +84,13 @@ function do_log() {
       printf "%*s\n" $COLUMNS | tr ' ' '='
       echo -ne "${NORMAL_COLOR}"
       ;;
+    good_exit)
+      echo -ne "${RED____COLOR}"
+      printf "%*s\n" $COLUMNS | tr ' ' '='
+      printf "[$(date "+%H:%M:%S:%3N")]:     %s\n" "$arg"
+      printf "%*s\n" $COLUMNS | tr ' ' '='
+      echo -ne "${NORMAL_COLOR}"
+      ;;
     section)
       echo -ne "${WHITE__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
@@ -187,5 +194,5 @@ function main()
 
 main
 
-do_log title "End"
+do_log good_exit "End"
 exit 0
