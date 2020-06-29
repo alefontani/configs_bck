@@ -27,6 +27,8 @@ function check_command() {
     do_log error "$(cat ${TMP_ERROR} 2>/dev/null)"
     cp -f ${TMP_ERROR} /home/ale/Desktop
     rm -f ${TMP_ERROR}
+
+    do_log bad_exit "EXIT"
     sync
     exit $1
   fi
@@ -71,14 +73,21 @@ function do_log() {
     title)
       echo -ne "${GREEN__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '='
-      printf "[$(date "+%H:%M:%S:%3N")]:  %*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
+      printf "%*s\n" $COLUMNS | tr ' ' '='
+      echo -ne "${NORMAL_COLOR}"
+      ;;
+    bad_exit)
+      echo -ne "${RED____COLOR}"
+      printf "%*s\n" $COLUMNS | tr ' ' '='
+      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '='
       echo -ne "${NORMAL_COLOR}"
       ;;
     section)
       echo -ne "${WHITE__COLOR}"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
-      printf "[$(date "+%H:%M:%S:%3N")]:  %*s\n" $(((${#arg}+$COLUMNS)/2)) "$arg"
+      printf "[$(date "+%H:%M:%S:%3N")]:     %*s\n" "$arg"
       printf "%*s\n" $COLUMNS | tr ' ' '-'
       echo -ne "${NORMAL_COLOR}"
       ;;
@@ -128,6 +137,15 @@ function do_init() {
   RETAIN_NUM_LINES=1000
   TMP_ERROR="/${TMPDIR}/err_${SCRIPTNAME}"
 
+  WHITE__COLOR="\033[1m"
+  RED____COLOR="\033[1;31m"
+  GREEN__COLOR="\033[1;32m"
+  YELLOW_COLOR="\033[1;33m"
+  BLUE___COLOR="\033[1;34m"
+  PURPLE_COLOR="\033[1;35m"
+  CYAN___COLOR="\033[1;36m"
+  NORMAL_COLOR="\033[0m"
+
   do_logsetup
 }
 
@@ -167,10 +185,9 @@ function main()
   do_log section "git push origin $BRANCH"
   git push origin $BRANCH 2> ${TMP_ERROR}
   check_command $?
-
-
-  do_log title "End"
 }
 
 main
+
+do_log title "End"
 exit 0
