@@ -10,6 +10,11 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:$GOROOT/bin"
 
 ###############################################################################
+# LOCALS
+###############################################################################
+alias ksnip='/home/ale/locals/Ksnip/ksnip*.AppImage & disown'
+
+###############################################################################
 # GIT
 ###############################################################################
 # alias grc="git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
@@ -25,16 +30,18 @@ alias bbc='bitbake -c cleansstate'
 ###############################################################################
 # WINE
 ###############################################################################
-alias wine_tty='set -x; \
-                j=1 ;\
-                for i in /dev/ttyUSB*; do \
-                    sudo chmod 666 ${i} ;\
-                    com_wine=~/.wine/dosdevices/com${j} ;\
-                    rm ${com_wine} ;\
-                    ln -s ${i} ${com_wine} ;\
-                    j=$((j+1)) ;\
-                done; \
-                set +x'
+alias wine_tty='if ls -l /dev/ttyUSB*; then \
+                  set -x;\
+                  j=1 ;\
+                  for i in /dev/ttyUSB*; do \
+                      sudo chmod 666 ${i} ;\
+                      com_wine=~/.wine/dosdevices/com${j} ;\
+                      rm ${com_wine} ;\
+                      ln -s ${i} ${com_wine} ;\
+                      j=$((j+1)) ;\
+                  done; \
+                  set +x; \
+                  fi'
 
 ###############################################################################
 # COMANDI

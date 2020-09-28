@@ -98,6 +98,9 @@ DISABLE_UNTRACKED_FILES_DIRTY=true
 
 source $ZSH/oh-my-zsh.sh
 
+TERM=xterm-256color
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -133,3 +136,4 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /home/ale/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
