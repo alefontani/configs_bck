@@ -9,10 +9,20 @@ export GOROOT="$HOME/locals/go"
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOROOT/bin"
 
+export ARDUINO_CLI="$HOME/locals/arduino-cli_0.13.0_Linux_64bit/arduino-cli"
+export PATH="$PATH:$ARDUINO_CLI"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 ###############################################################################
 # LOCALS
 ###############################################################################
-alias ksnip='/home/ale/locals/Ksnip/ksnip*.AppImage & disown'
+alias ksnip='~/locals/Ksnip/ksnip*.AppImage & disown'
+alias webcamoid='~/locals/webcamoid/webcamoid.sh & disown'
+alias cmake='/home/ale/locals/cmake/cmake-3.19.4-Linux-x86_64/bin/cmake'
+alias arduino='/home/ale/locals/arduino-1.8.13/arduino'
+alias exiftool='/home/ale/locals/ExifTool/Image-ExifTool-12.23/exiftool'
 
 ###############################################################################
 # GIT
@@ -34,14 +44,14 @@ alias wine_tty='if ls -l /dev/ttyUSB*; then \
                   set -x;\
                   j=1 ;\
                   for i in /dev/ttyUSB*; do \
-                      sudo chmod 666 ${i} ;\
-                      com_wine=~/.wine/dosdevices/com${j} ;\
-                      rm ${com_wine} ;\
-                      ln -s ${i} ${com_wine} ;\
-                      j=$((j+1)) ;\
+                    sudo chmod 666 ${i} ;\
+                    com_wine=~/.wine/dosdevices/com${j} ;\
+                    rm ${com_wine} ;\
+                    ln -s ${i} ${com_wine} ;\
+                    j=$((j+1)) ;\
                   done; \
                   set +x; \
-                  fi'
+                fi'
 
 ###############################################################################
 # COMANDI
@@ -56,10 +66,6 @@ alias bell='paplay /usr/share/sounds/ubuntu/stereo/system-ready.ogg'
 alias boilerplate='/media/ale/linuxdata/cpp_boilerplate/./start.sh'
 alias aggiorna='sudo apt update; sudo apt -y upgrade'
 # alias cat="pygmentize -g"
-# rsync -az --progress \
-#   --exclude={"/build*/*","/lost+found","/.*/"} \
-#   --include={"/.config", "/.local",".oh-my-zsh"} \
-#   /home/ale/ /media/ale/samsung_t5/backup_ubu16/ale
 alias lt='ls --human-readable --size -1 -S --classify'
 alias mnt="mount | awk -F' ' '{ printf \"%s\t%s\n\",\$1,\$3; }' | \
           column -t | egrep ^/dev/ | sort"
@@ -68,18 +74,61 @@ alias count='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
 alias cheat='_cheat(){ curl cheat.sh/"$1";}; _cheat'
 
+function home_backup_t5() {
+    backupSupport="/media/$USER/samsung_t5"
+
+    if [ ! -d $backupSupport ]; then
+        return 1
+    fi
+
+    wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
+
+    backupHomeFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/home/$USER/"
+    mkdir -p $backupHomeFolder
+    rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ $backupHomeFolder
+
+    wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
+    backupLinuxdataFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/linuxdata/"
+    mkdir -p $backupLinuxdataFolder
+    rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
+}
+
+function home_backup_hellmachine () {
+    if nmap 192.168.1.104 -PN -p ssh | grep -q open ; then
+        backupSupport="ale@192.168.1.104"
+    elif nmap hellmachine-ale.duckdns.org -PN -p ssh | grep -q open ; then
+        backupSupport="ale@hellmachine-ale.duckdns.org"
+    else
+        return 1
+    fi
+
+    wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
+    backupHomeFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/home/$USER/"
+    ssh $backupSupport mkdir -p $backupHomeFolder
+    rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ ${backupSupport}:${backupHomeFolder}
+
+    wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
+    backupLinuxdataFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/linuxdata/"
+    ssh $backupSupport mkdir -p $backupLinuxdataFolder
+    rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ ${backupSupport}:${backupLinuxdataFolder}
+}
+
+function dsize()
+{
+  dir=$(pwd)
+  if [ "$1" != "" ]; then
+          dir=$1
+  fi
+  echo $(du -hcs $dir)
+}
+
 ###############################################################################
 # DESTINAZIONI
 ###############################################################################
 alias linuxdata="cd /media/ale/linuxdata"
 alias kernel="cd /media/ale/linuxdata/kernel"
-alias yocto="cd /media/ale/linuxdata/yocto/"
-alias ameli="cd /media/ale/samsung_t5/Ameli"
-alias aep="cd /media/ale/samsung_t5/Aep"
-alias ceza="cd /media/ale/samsung_t5/Ceza"
-alias dmg="cd /media/ale/samsung_t5/Dmg"
-alias gilbarco="cd /media/ale/samsung_t5/Gilbarco"
-alias mectronic="cd /media/ale/samsung_t5/Mectronic"
+alias yocto="cd /media/ale/linuxdata/yocto"
+alias jumble="cd /media/ale/linuxdata/jumble"
 
 ###############################################################################
 # TRASFERIMENTI A TFTPBOOT
