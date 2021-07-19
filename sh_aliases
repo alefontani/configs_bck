@@ -81,14 +81,16 @@ function home_backup_t5() {
         return 1
     fi
 
+    backupFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
+
     wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
 
-    backupHomeFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/home/$USER/"
+    backupHomeFolder="${backupFolder}/home/$USER/"
     mkdir -p $backupHomeFolder
     rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ $backupHomeFolder
 
     wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
-    backupLinuxdataFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/linuxdata/"
+    backupLinuxdataFolder="${backupFolder}/linuxdata/"
     mkdir -p $backupLinuxdataFolder
     rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
 }
@@ -102,13 +104,15 @@ function home_backup_hellmachine () {
         return 1
     fi
 
+    backupFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
+
     wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
-    backupHomeFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/home/$USER/"
+    backupHomeFolder="${backupFolder}/home/$USER/"
     ssh $backupSupport mkdir -p $backupHomeFolder
     rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ ${backupSupport}:${backupHomeFolder}
 
     wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
-    backupLinuxdataFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")/linuxdata/"
+    backupLinuxdataFolder="${backupFolder}/linuxdata/"
     ssh $backupSupport mkdir -p $backupLinuxdataFolder
     rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ ${backupSupport}:${backupLinuxdataFolder}
 }
@@ -121,6 +125,17 @@ function dsize()
   fi
   echo $(du -hcs $dir)
 }
+
+function sony_wf_1000xm3()
+{
+  echo -e "disconnect 94:DB:56:1C:FA:C3\n" | bluetoothctl
+  sleep 5
+  echo -e "connect 94:DB:56:1C:FA:C3\n" | bluetoothctl
+  sleep 10
+  bt_dev_index=`pacmd list-cards | grep bluez_card.94_DB_56_1C_FA_C3 -B1 | grep index | awk '{print $2}'`
+  pacmd set-card-profile $bt_dev_index a2dp_sink
+}
+
 
 ###############################################################################
 # DESTINAZIONI
