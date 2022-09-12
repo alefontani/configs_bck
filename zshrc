@@ -88,6 +88,7 @@ plugins=(
   colored-man-pages
   zsh-autosuggestions
   zsh-syntax-highlighting
+  nvm
 )
 
 ZSH_DISABLE_COMPFIX=true
@@ -138,3 +139,9 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source /home/ale/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+### Bashhub.com Installation
+if [ -f ~/.bashhub/bashhub.zsh ]; then
+    source ~/.bashhub/bashhub.zsh
+fi
+

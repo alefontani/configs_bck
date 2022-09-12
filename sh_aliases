@@ -1,7 +1,3 @@
-# Correzione colori su shell con sfondo nero
-LS_COLORS='rs=0:di=1;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:';
-export LS_COLORS
-
 ###############################################################################
 # EXPORT
 ###############################################################################
@@ -20,38 +16,14 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 ###############################################################################
 alias ksnip='~/locals/Ksnip/ksnip*.AppImage & disown'
 alias webcamoid='~/locals/webcamoid/webcamoid.sh & disown'
-alias cmake='/home/ale/locals/cmake/cmake-3.19.4-Linux-x86_64/bin/cmake'
-alias arduino='/home/ale/locals/arduino-1.8.13/arduino'
-alias exiftool='/home/ale/locals/ExifTool/Image-ExifTool-12.23/exiftool'
-
-###############################################################################
-# GIT
-###############################################################################
-# alias grc="git log --oneline --all --graph --decorate  $(git reflog | awk '{print $1}')"
-
-###############################################################################
-# BITBAKE
-###############################################################################
-# alias bbend='xmessage -nearmouse "bitbake has finished for some reason"'
-alias bbend='for n in {1..2}; do bell; done ;xmessage -nearmouse \
-            "bitbake has finished for some reason"'
-alias bbc='bitbake -c cleansstate'
-
-###############################################################################
-# WINE
-###############################################################################
-alias wine_tty='if ls -l /dev/ttyUSB*; then \
-                  set -x;\
-                  j=1 ;\
-                  for i in /dev/ttyUSB*; do \
-                    sudo chmod 666 ${i} ;\
-                    com_wine=~/.wine/dosdevices/com${j} ;\
-                    rm ${com_wine} ;\
-                    ln -s ${i} ${com_wine} ;\
-                    j=$((j+1)) ;\
-                  done; \
-                  set +x; \
-                fi'
+alias cmake='~/locals/cmake/cmake-3.19.4-Linux-x86_64/bin/cmake'
+alias arduino='~/locals/arduino-1.8.13/arduino'
+alias exiftool='~/locals/ExifTool/Image-ExifTool-12.23/exiftool'
+alias datagrip='bash ~/locals/datagrip/datagrip & disown'
+alias k9s='~/locals/k9s/k9s'
+alias postman='~/locals/postman/Postman & disown'
+alias btop='~/locals/btop/btop'
+alias exa='~/locals/exa/exa'
 
 ###############################################################################
 # COMANDI
@@ -62,7 +34,11 @@ alias cm="sudo chmod 777"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || \
             echo error)" "$(history | tail -n1 | \
             sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias bell='paplay /usr/share/sounds/ubuntu/stereo/system-ready.ogg'
+alias bell='if [ $? -eq 0 ]; then \
+    paplay /usr/share/sounds/ubuntu/notifications/Positive.ogg; \
+  else \
+    paplay /usr/share/sounds/gnome/default/alerts/bark.ogg; \
+  fi'
 alias boilerplate='/media/ale/linuxdata/cpp_boilerplate/./start.sh'
 alias aggiorna='sudo apt update; sudo apt -y upgrade'
 # alias cat="pygmentize -g"
@@ -73,6 +49,28 @@ alias left='ls -t -1'
 alias count='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
 alias cheat='_cheat(){ curl cheat.sh/"$1";}; _cheat'
+alias my_notes='code ~/GoogleDrive/Appunti'
+alias code_folders='for d in */ ; do code $d ;done'
+alias my_mtr='mtr -i 1 -o "L SBAWV MIX" -z'
+alias my_mtr_report='mtr -r -c 50 -i 1 -o "L SBAWV MIX" -z'
+alias please='sudo $(fc -ln -1)'
+
+# exapmple:
+# deployk apply --dry-run='server' -k ../staging
+alias deployk='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
+alias productionk='kubectl --kubeconfig="/home/ale/bravo/clusters/production" '
+
+alias nppPortForwardProd='gcloud container clusters get-credentials \
+  webravo-eu-production-cluster --zone europe-west2-b --project webravo-175810 \
+  && kubectl port-forward --namespace production $(kubectl get pod --namespace \
+  production --selector="app=api-providers-npps,environment=production,tier=api" \
+  --output jsonpath="{.items[0].metadata.name}") 5002:5002'
+
+alias nppPortForwardStaging='gcloud container clusters get-credentials \
+  webravo-deployement-cluster --zone europe-west2-b --project webravo-175810 \
+  && kubectl port-forward --namespace staging $(kubectl get pod --namespace \
+  staging --selector="app=api-providers-npps,environment=staging,tier=api" \
+  --output jsonpath="{.items[0].metadata.name}") 5002:5002'
 
 function home_backup_t5() {
     backupSupport="/media/$USER/samsung_t5"
@@ -136,83 +134,76 @@ function sony_wf_1000xm3()
   pacmd set-card-profile $bt_dev_index a2dp_sink
 }
 
+function sony_6300_sd_to_hd()
+{
+
+  for file in /media/ale/disk/DCIM/100MSDCF/*; do
+    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/
+  done
+  for file in /media/ale/disk/PRIVATE/AVCHD/BDMV/STREAM/*; do
+    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
+  done
+  for file in /media/ale/disk/PRIVATE/M4ROOT/CLIP/*; do
+    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
+  done
+}
+
+function sony_6300_hd_to_t5()
+{
+  rsync -av -P /home/ale/Pictures/photos_6300 /media/ale/samsung_t5
+  sync
+}
 
 ###############################################################################
-# DESTINAZIONI
+# GIT
 ###############################################################################
-alias linuxdata="cd /media/ale/linuxdata"
-alias kernel="cd /media/ale/linuxdata/kernel"
-alias yocto="cd /media/ale/linuxdata/yocto"
-alias jumble="cd /media/ale/linuxdata/jumble"
+# alias grc="git log --oneline --all --graph --decorate"
 
 ###############################################################################
-# TRASFERIMENTI A TFTPBOOT
+# BITBAKE
 ###############################################################################
-### TEF ###
-tef_images="/media/ale/linuxdata/dmg-krogot/work/tmp/deploy/images/geamx6ul-tef/"
-alias tftpboot-tef-all="cp -v ${tef_images}geamx6ul-tef-filesystem-primary.rootfs.ubifs \
-                          ~/tftpboot/tef/rootfs.ubifs; \
-                        cp -v ${tef_images}uImage--4.1.15-r0-geamx6ul-tef-*.dtb \
-                          ~/tftpboot/tef/uImage.dtb; \
-                        cp -v ${tef_images}uImage--4.1.15-r0-geamx6ul-tef-*.bin \
-                          ~/tftpboot/tef/uImage"
-alias tftpboot-tef-ker="cp -v ${tef_images}uImage--4.1.15-r0-geamx6ul-tef-*.bin \
-                          ~/tftpboot/tef/uImage"
-alias tftpboot-tef-dtb="cp -v ${tef_images}uImage--4.1.15-r0-geamx6ul-tef-*.dtb \
-                          ~/tftpboot/tef/uImage.dtb"
-alias tftpboot-tef-fs=" cp -v ${tef_images}geamx6ul-tef-filesystem-primary.rootfs.ubifs \
-                          ~/tftpboot/tef/rootfs.ubifs"
+# alias bbend='xmessage -nearmouse "bitbake has finished for some reason"'
+alias bbend='for n in {1..2}; do bell; done ;xmessage -nearmouse \
+            "bitbake has finished for some reason"'
+alias bbc='bitbake -c cleansstate'
 
-### DEMO AMELI ###
-demo_images="/media/ale/samsung_t5/yocto/n1c-rocko/build-icoremx6solo-demo/tmp/deploy/images/icoremx6solo-demo_Demo/"
-alias tftpboot-demo-all="cp -v ${demo_images}icoremx6solo-demo-filesystem-primary.rootfs.ubifs \
-                            ~/tftpboot/demo/rootfs.ubifs; \
-                         cp -v ${demo_images}uImage--4.1.15-r0-icoremx6dl-starterkit-*.dtb \
-                            ~/tftpboot/demo/uImage.dtb; \
-                         cp -v ${demo_images}uImage--4.1.15-r0-icoremx6solo-demo-*.bin \
-                            ~/tftpboot/demo/uImage"
-alias tftpboot-demo-ker="cp -v ${demo_images}uImage--4.1.15-r0-icoremx6solo-demo-*.bin \
-                            ~/tftpboot/demo/uImage"
-alias tftpboot-demo-dtb="cp -v ${demo_images}uImage--4.1.15-r0-icoremx6dl-starterkit-*.dtb \
-                            ~/tftpboot/demo/uImage.dtb"
-alias tftpboot-demo-fs=" cp -v ${demo_images}icoremx6solo-demo-filesystem-primary.rootfs.ubifs \
-                            ~/tftpboot/demo/rootfs.ubifs"
+###############################################################################
+# WINE
+###############################################################################
+alias wine_tty='if ls -l /dev/ttyUSB*; then \
+                  set -x;\
+                  j=1 ;\
+                  for i in /dev/ttyUSB*; do \
+                    sudo chmod 666 ${i} ;\
+                    com_wine=~/.wine/dosdevices/com${j} ;\
+                    rm ${com_wine} ;\
+                    ln -s ${i} ${com_wine} ;\
+                    j=$((j+1)) ;\
+                  done; \
+                  set +x; \
+                fi'
 
-### AMELIMQ MASTER ###
-amlimq_images="/media/ale/linuxdata/yocto/ameli-rocko/build-icoremx6solo-amelimq-master/tmp/deploy/images/icoremx6solo-amelimq_amelimq/"
-alias tftpboot-amelimq-all-7="cp -v ${amlimq_images}icoremx6solo-amelimq-filesystem-primary.rootfs.ubifs \
-                              ~/tftpboot/amelimq/rootfs.ubifs; \
-                            cp -v ${amlimq_images}uImage*-amelimq-7-*.dtb \
-                              ~/tftpboot/amelimq/uImage.dtb; \
-                            cp -v ${amlimq_images}uImage--4.1.15-*-icoremx6solo-amelimq-*.bin \
-                              ~/tftpboot/amelimq/uImage"
-alias tftpboot-amelimq-all-10="cp -v ${amlimq_images}icoremx6solo-amelimq-filesystem-primary.rootfs.ubifs \
-                              ~/tftpboot/amelimq/rootfs.ubifs; \
-                            cp -v ${amlimq_images}uImage*-amelimq-10-*.dtb \
-                              ~/tftpboot/amelimq/uImage.dtb; \
-                            cp -v ${amlimq_images}uImage--4.1.15-*-icoremx6solo-amelimq-*.bin \
-                              ~/tftpboot/amelimq/uImage"
-alias tftpboot-amelimq-ker="cp -v ${amlimq_images}uImage--4.1.15-*-icoremx6solo-amelimq-*.bin \
-                              ~/tftpboot/amelimq/uImage"
-alias tftpboot-amelimq-dtb-7="cp -v ${amlimq_images}uImage*-amelimq-7-*.dtb \
-                              ~/tftpboot/amelimq/uImage.dtb"
-alias tftpboot-amelimq-dtb-10="cp -v ${amlimq_images}uImage*-amelimq-10-*.dtb \
-                              ~/tftpboot/amelimq/uImage.dtb"
-alias tftpboot-amelimq-fs=" cp -v ${amlimq_images}icoremx6solo-amelimq-filesystem-primary.rootfs.ubifs \
-                              ~/tftpboot/amelimq/rootfs.ubifs"
-
-
-### CDB4v2 ###
-cdb4v2_images="/media/ale/toshiba_ext/YOCTO/aep-rocko/build-mx6dl-cdb4v2/tmp/deploy/images/aepmx6dl_CDB4v2/"
-alias tftpboot-cdb4v2-fs=" cp -v ${cdb4v2_images}aepmx6dl-filesystem-primary.rootfs.ubifs \
-                              ~/tftpboot/cdb4v2/primary.rootfs.ubifs"
-alias tftpboot-cdb4v2-ker="cp -v ${cdb4v2_images}uImage--4.1.36-*.bin \
-                              ~/tftpboot/cdb4v2/uImage.bin"
-alias tftpboot-cdb4v2-dtb="cp -v ${cdb4v2_images}uImage--4.1.36-*.dtb \
-                              ~/tftpboot/cdb4v2/uImage.dtb"
-alias tftpboot-cdb4v2-all="cp -v ${cdb4v2_images}aepmx6dl-filesystem-primary.rootfs.ubifs \
-                              ~/tftpboot/cdb4v2/primary.rootfs.ubifs; \
-                           cp -v ${cdb4v2_images}uImage--4.1.36-*.bin \
-                              ~/tftpboot/cdb4v2/uImage.bin; \
-                           cp -v ${cdb4v2_images}uImage--4.1.36-*.dtb \
-                              ~/tftpboot/cdb4v2/uImage.dtb"
+                # Correzione colori su shell con sfondo nero
+# LS_COLORS='rs=0:di=1;35:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;\n
+# 01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;\n
+# 44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;\n
+# 31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;\n
+# 31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;\n
+# 31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;\n
+# 31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;\n
+# 31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;\n
+# 35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;\n
+# 35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;\n
+# 35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;\n
+# 35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;\n
+# 35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;\n
+# 35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;\n
+# 35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;\n
+# 35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;\n
+# 36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;\n
+# 36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;\n
+# 36:*.xspf=00;36:';
+# export LS_COLORS
