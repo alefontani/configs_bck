@@ -24,6 +24,8 @@ alias k9s='~/locals/k9s/k9s'
 alias postman='~/locals/postman/Postman & disown'
 alias btop='~/locals/btop/btop'
 alias exa='~/locals/exa/exa'
+alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock\
+  -v ~/locals/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
 
 ###############################################################################
 # COMANDI
@@ -55,10 +57,25 @@ alias my_mtr='mtr -i 1 -o "L SBAWV MIX" -z'
 alias my_mtr_report='mtr -r -c 50 -i 1 -o "L SBAWV MIX" -z'
 alias please='sudo $(fc -ln -1)'
 
+alias wacomKeys='\
+  # xournal undo: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +ctrl z -ctrl"; \
+  # xournal default tools: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 2 "key +ctrl +shift D -ctrl -shift"; \
+  # xournal select rectangle: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 3 "key +ctrl +shift R -ctrl -shift"; \
+  # xournal select object: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 8 "key +ctrl +shift O -ctrl -shift"'
+
+alias xournalpp='xournalpp &>/dev/null & disown && wacomKeys'
+
 # exapmple:
 # deployk apply --dry-run='server' -k ../staging
 alias deployk='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
 alias productionk='kubectl --kubeconfig="/home/ale/bravo/clusters/production" '
+alias k9s_deployement='k9s --context gke_webravo-175810_europe-west2-b_webravo-deployement-cluster'
+alias k9s_prod='k9s --context gke_webravo-175810_europe-west2-b_webravo-eu-production-cluster'
+alias k9s_readonly='k9s --readonly'
 
 alias nppPortForwardProd='gcloud container clusters get-credentials \
   webravo-eu-production-cluster --zone europe-west2-b --project webravo-175810 \
@@ -136,18 +153,38 @@ function sony_wf_1000xm3()
 
 function sony_6300_sd_to_hd()
 {
+  local DISK_6300=$1
 
-  for file in /media/ale/disk/DCIM/100MSDCF/*; do
+  for file in ${DISK_6300}/DCIM/100MSDCF/*; do
     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/
   done
-  for file in /media/ale/disk/PRIVATE/AVCHD/BDMV/STREAM/*; do
+  for file in ${DISK_6300}/PRIVATE/AVCHD/BDMV/STREAM/*; do
     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
   done
-  for file in /media/ale/disk/PRIVATE/M4ROOT/CLIP/*; do
+  for file in ${DISK_6300}/PRIVATE/M4ROOT/CLIP/*; do
     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
+  done
+}
+
+function sony_6300_sd_to_hd_2()
+{
+  local DISK_6300=$1
+
+  for file in ${DISK_6300}/* ${DISK_6300}/**/*; do
+    if [ -d "$file" ]; then
+      continue
+    fi
+
+    local creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+    local filename=$(basename -- "$file")
+    local extension="${filename##*.}"
+    local dir="/home/ale/Pictures/photos_6300/${creationDate}/${extension}"
+    mkdir -p ${dir}
+    rsync -lptgoDv -P ${file} ${dir}/
+    # cp ${file} ${dir}/
   done
 }
 

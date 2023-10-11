@@ -145,3 +145,5 @@ if [ -f ~/.bashhub/bashhub.zsh ]; then
     source ~/.bashhub/bashhub.zsh
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/configs_bck/p10k.zsh.
+[[ ! -f ~/configs_bck/p10k.zsh ]] || source ~/configs_bck/p10k.zsh
