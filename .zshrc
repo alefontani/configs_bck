@@ -1,10 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -14,11 +7,10 @@ fi
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="gentoo"
-#ZSH_THEME="avit"
-# ZSH_THEME="candy"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="gentoo"
+# ZSH_THEME="avit"
+ZSH_THEME="candy"
 
 # ZSH_THEME="spaceship"
 # SPACESHIP_PROMPT_ADD_NEWLINE='true'
@@ -83,13 +75,20 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  alias-finder
+  # alias-finder
+  aliases
   colored-man-pages
+  git
+  kubectl
+  nvm
   zsh-autosuggestions
   zsh-syntax-highlighting
-  nvm
 )
+
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 ZSH_DISABLE_COMPFIX=true
 
@@ -136,14 +135,17 @@ if [ -f ~/.sh_aliases ]; then
     . ~/.sh_aliases
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /home/ale/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 ### Bashhub.com Installation
 if [ -f ~/.bashhub/bashhub.zsh ]; then
     source ~/.bashhub/bashhub.zsh
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/configs_bck/p10k.zsh.
-[[ ! -f ~/configs_bck/p10k.zsh ]] || source ~/configs_bck/p10k.zsh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/ale/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ale/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/ale/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/ale/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(starship init zsh)"

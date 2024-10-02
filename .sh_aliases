@@ -8,6 +8,21 @@ export PATH="$PATH:$GOROOT/bin"
 export ARDUINO_CLI="$HOME/locals/arduino-cli_0.13.0_Linux_64bit/arduino-cli"
 export PATH="$PATH:$ARDUINO_CLI"
 
+export OPEN_JDK="$HOME/locals/openJDK/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13/jdk-21.0.2+13/bin/"
+export PATH="$PATH:$OPEN_JDK"
+
+export TEXLIVE_PATH="/usr/local/texlive/2023/bin/x86_64-linux"
+export PATH="$PATH:$TEXLIVE_PATH"
+export TEXLIVE_MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man"
+export MANPATH="$(manpath -g):$TEXLIVE_MANPATH"
+# Aggiungere al file /etc/manpath.config
+# MANPATH_MAP /usr/local/texlive/2023/bin/x86_64-linux /usr/local/texlive/2023/texmf-dist/doc/man
+export TEXLIVE_INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info"
+export INFOPATH="$INFOPATH:$TEXLIVE_INFOPATH"
+
+# Add /usr/local/texlive/2023/texmf-dist/doc/man to MANPATH.
+# Add /usr/local/texlive/2023/texmf-dist/doc/info to INFOPATH.
+
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
@@ -37,7 +52,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || \
             echo error)" "$(history | tail -n1 | \
             sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias bell='if [ $? -eq 0 ]; then \
-    paplay /usr/share/sounds/ubuntu/notifications/Positive.ogg; \
+    paplay /usr/share/sounds/freedesktop/stereo/complete.oga; \
   else \
     paplay /usr/share/sounds/gnome/default/alerts/bark.ogg; \
   fi'
@@ -52,12 +67,32 @@ alias count='find . -type f | wc -l'
 alias cpv='rsync -ah --info=progress2'
 alias cheat='_cheat(){ curl cheat.sh/"$1";}; _cheat'
 alias my_notes='code ~/GoogleDrive/Appunti'
+alias my_clipboard='code /home/ale/jumble/notes'
 alias code_folders='for d in */ ; do code $d ;done'
 alias my_mtr='mtr -i 1 -o "L SBAWV MIX" -z'
 alias my_mtr_report='mtr -r -c 50 -i 1 -o "L SBAWV MIX" -z'
 alias please='sudo $(fc -ln -1)'
+alias nr='npm run'
 
-alias wacomKeys='\
+#  ---------------------- exa ----------------------
+#ls
+alias ls='exa'
+# list, size, type, git
+alias l='exa -lbF --git'
+# long list
+alias ll='exa -lbGF --git'
+# long list, modified date sort
+alias llm='exa -lbF --git --sort=modified --time-style=long-iso --color-scale'
+# all list
+alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'
+# all + extended list
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+# one column, just names
+alias lS='exa -1'
+# tree
+alias lt='exa --tree --level=2'
+
+alias wacomKeysXournal='\
   # xournal undo: \
   xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +ctrl z -ctrl"; \
   # xournal default tools: \
@@ -69,13 +104,29 @@ alias wacomKeys='\
 
 alias xournalpp='xournalpp &>/dev/null & disown && wacomKeys'
 
+alias wacomKeysObsidian='\
+  # obsidian undo: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +ctrl z -ctrl"; \
+  # obsidian default tools: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 2 "key +ctrl +shift D -ctrl -shift"; \
+  # obsidian select rectangle: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 3 "key +ctrl +shift + -ctrl"; \
+  # obsidian select object: \
+  xsetwacom --set "Wacom Intuos BT S Pad pad" Button 8 "key +ctrl +shift - -ctrl"'
+
 # exapmple:
 # deployk apply --dry-run='server' -k ../staging
 alias deployk='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
 alias productionk='kubectl --kubeconfig="/home/ale/bravo/clusters/production" '
-alias k9s_deployement='k9s --context gke_webravo-175810_europe-west2-b_webravo-deployement-cluster'
-alias k9s_prod='k9s --context gke_webravo-175810_europe-west2-b_webravo-eu-production-cluster'
-alias k9s_readonly='k9s --readonly'
+
+# alias k9s_deployement='k9s --context gke_webravo-175810_europe-west2-b_webravo-deployement-cluster'
+alias k9s_deployement='k9s --kubeconfig="/home/ale/bravo/clusters/deployments"'
+# alias k9s_prod='k9s --context gke_webravo-175810_europe-west2-b_webravo-eu-production-cluster'
+alias k9s_prod='k9s --kubeconfig="/home/ale/bravo/clusters/production"'
+
+alias k9s_deployement_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/deployments"'
+alias k9s_prod_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/production"'
+
 
 alias nppPortForwardProd='gcloud container clusters get-credentials \
   webravo-eu-production-cluster --zone europe-west2-b --project webravo-175810 \
@@ -95,19 +146,19 @@ function home_backup_t5() {
     if [ ! -d $backupSupport ]; then
         return 1
     fi
-
     backupFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
 
     wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
-
     backupHomeFolder="${backupFolder}/home/$USER/"
     mkdir -p $backupHomeFolder
     rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ $backupHomeFolder
 
-    wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
     backupLinuxdataFolder="${backupFolder}/linuxdata/"
-    mkdir -p $backupLinuxdataFolder
-    rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
+    if [ -d ${backupLinuxdataFolder} ]; then
+      wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
+      mkdir -p $backupLinuxdataFolder
+      rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
+    fi
 }
 
 function home_backup_hellmachine () {
