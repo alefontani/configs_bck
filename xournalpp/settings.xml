@@ -6,16 +6,16 @@
   <property name="pressureMultiplier" value="2.57"/>
   <property name="zoomGesturesEnabled" value="true"/>
   <property name="selectedToolbar" value="Right hand Note Taking Copy"/>
-  <property name="lastSavePath" value="/home/ale/GoogleDrive/Appunti/microtick"/>
-  <property name="lastOpenPath" value="/home/ale/GoogleDrive/Appunti/microtick"/>
+  <property name="lastSavePath" value="/home/ale/Desktop"/>
+  <property name="lastOpenPath" value="/home/ale/Downloads"/>
   <property name="lastImagePath" value="/home/ale/Downloads"/>
   <property name="edgePanSpeed" value="20"/>
   <property name="edgePanMaxMult" value="5"/>
   <property name="zoomStep" value="10"/>
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="71"/>
-  <property name="mainWndWidth" value="1920"/>
-  <property name="mainWndHeight" value="1015"/>
+  <property name="mainWndWidth" value="2293"/>
+  <property name="mainWndHeight" value="1375"/>
   <property name="maximized" value="true"/>
   <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="true"/>
@@ -93,7 +93,7 @@
   <!--Config for new pages-->
   <property name="pageTemplate" value="xoj/template&#10;copyLastPageSize=false&#10;copyLastPageSettings=false&#10;size=1133.840000x595.275591&#10;backgroundType=ruled&#10;backgroundColor=#ffffffff&#10;"/>
   <property name="sizeUnit" value="cm"/>
-  <property name="audioFolder" value="file:///home/ale/GoogleDrive/Appunti/xuornalpp_audio"/>
+  <property name="audioFolder" value="/home/ale/Downloads"/>
   <property name="audioInputDevice" value="11"/>
   <property name="audioOutputDevice" value="11"/>
   <property name="audioSampleRate" value="44100"/>
@@ -126,14 +126,14 @@
   <property name="latexSettings.defaultText" value="x^2"/>
   <property name="latexSettings.globalTemplatePath" value="/usr/share/xournalpp/resources/default_template.tex"/>
   <property name="latexSettings.genCmd" value="pdflatex -halt-on-error -interaction=nonstopmode '{}'"/>
-  <property name="latexSettings.sourceViewThemeId" value=""/>
+  <property name="latexSettings.sourceViewThemeId" value="classic"/>
   <property name="latexSettings.editorFont" value="Monospace 12"/>
   <property name="latexSettings.useCustomEditorFont" value="false"/>
   <property name="latexSettings.editorWordWrap" value="true"/>
   <property name="latexSettings.sourceViewAutoIndent" value="true"/>
   <property name="latexSettings.sourceViewSyntaxHighlight" value="true"/>
   <property name="latexSettings.sourceViewShowLineNumbers" value="false"/>
-  <property name="font" font="Ubuntu Mono" size="16"/>
+  <property name="font" font="Liberation Sans Narrow Condensed" size="12"/>
   <data name="buttonConfig">
     <data name="default">
       <attribute name="color" type="hex" value="ff000000"/>
@@ -176,9 +176,17 @@
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
+    <data name="ASUF1300:00 2808:0205 Mouse">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
     <data name="ASUF1300:00 2808:0205 Touchpad">
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="6"/>
+    </data>
+    <data name="DP-1">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
     </data>
     <data name="ELAN0712:00 04F3:30FD Mouse">
       <attribute name="deviceClass" type="int" value="1"/>
@@ -192,7 +200,19 @@
       <attribute name="deviceClass" type="int" value="5"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
+    <data name="Keychron Keychron V3 Consumer Control">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="Keychron Keychron V3 Mouse">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
     <data name="Logitech Anywhere MX">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="Logitech Signature M650 L">
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
@@ -230,7 +250,7 @@
     <attribute name="count" type="int" value="9"/>
   </data>
   <data name="tools">
-    <attribute name="current" type="string" value="selectObject"/>
+    <attribute name="current" type="string" value="text"/>
     <data name="drawArrow">
       <attribute name="drawingType" type="string" value="default"/>
     </data>
@@ -251,8 +271,8 @@
     </data>
     <data name="eraser">
       <attribute name="drawingType" type="string" value="default"/>
-      <attribute name="size" type="string" value="BIG"/>
-      <attribute name="type" type="string" value="deleteStroke"/>
+      <attribute name="size" type="string" value="MEDIUM"/>
+      <attribute name="type" type="string" value="whiteout"/>
     </data>
     <data name="hand">
       <attribute name="drawingType" type="string" value="default"/>
@@ -268,8 +288,8 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="pen">
-      <attribute name="color" type="hex" value="ff000000"/>
-      <attribute name="drawingType" type="string" value="line"/>
+      <attribute name="color" type="hex" value="ff0000"/>
+      <attribute name="drawingType" type="string" value="arrow"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
       <attribute name="size" type="string" value="THIN"/>
@@ -305,7 +325,7 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="text">
-      <attribute name="color" type="hex" value="000000"/>
+      <attribute name="color" type="hex" value="ff0000"/>
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="verticalSpace">

@@ -54,7 +54,11 @@ symbol = " "
 symbol = " "
 
 [gcloud]
-disabled = true
+disabled = false
+format = '[$symbol $project]($style)'
+symbol = '️🇬️ '
+style = 'blue'
+
 
 [git_branch]
 symbol = " "

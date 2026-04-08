@@ -11,17 +11,11 @@ export PATH="$PATH:$ARDUINO_CLI"
 export OPEN_JDK="$HOME/locals/openJDK/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13/jdk-21.0.2+13/bin/"
 export PATH="$PATH:$OPEN_JDK"
 
-export TEXLIVE_PATH="/usr/local/texlive/2023/bin/x86_64-linux"
-export PATH="$PATH:$TEXLIVE_PATH"
-export TEXLIVE_MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man"
-export MANPATH="$(manpath -g):$TEXLIVE_MANPATH"
-# Aggiungere al file /etc/manpath.config
-# MANPATH_MAP /usr/local/texlive/2023/bin/x86_64-linux /usr/local/texlive/2023/texmf-dist/doc/man
-export TEXLIVE_INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info"
-export INFOPATH="$INFOPATH:$TEXLIVE_INFOPATH"
+export DOOM_EMACS="$HOME/.config/emacs/bin"
+export PATH="$PATH:$DOOM_EMACS"
 
-# Add /usr/local/texlive/2023/texmf-dist/doc/man to MANPATH.
-# Add /usr/local/texlive/2023/texmf-dist/doc/info to INFOPATH.
+export GCLOUD_SDK="$HOME/locals/google-cloud-sdk/"
+export PATH="$PATH:$GCLOUD_SDK"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
@@ -33,17 +27,18 @@ alias ksnip='~/locals/Ksnip/ksnip*.AppImage & disown'
 alias webcamoid='~/locals/webcamoid/webcamoid.sh & disown'
 alias cmake='~/locals/cmake/cmake-3.19.4-Linux-x86_64/bin/cmake'
 alias arduino='~/locals/arduino-1.8.13/arduino'
-alias exiftool='~/locals/ExifTool/Image-ExifTool-12.23/exiftool'
+alias exiftool='~/locals/ExifTool/Image-ExifTool-13.33/exiftool'
 alias datagrip='bash ~/locals/datagrip/datagrip & disown'
 alias k9s='~/locals/k9s/k9s'
 alias postman='~/locals/postman/Postman & disown'
 alias btop='~/locals/btop/btop'
 alias exa='~/locals/exa/exa'
+alias bw='~/locals/bitwarden/bw'
 alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock\
   -v ~/locals/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
 
 ###############################################################################
-# COMANDI
+# ALIAS
 ###############################################################################
 alias cm="sudo chmod 777"
 # Add an "alert" alias for long running commands.  Use like so:
@@ -73,6 +68,10 @@ alias my_mtr='mtr -i 1 -o "L SBAWV MIX" -z'
 alias my_mtr_report='mtr -r -c 50 -i 1 -o "L SBAWV MIX" -z'
 alias please='sudo $(fc -ln -1)'
 alias nr='npm run'
+alias pn='pnpm run'
+alias pdf_small='gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf'
+alias cod='codium'
+
 
 #  ---------------------- exa ----------------------
 #ls
@@ -102,7 +101,7 @@ alias wacomKeysXournal='\
   # xournal select object: \
   xsetwacom --set "Wacom Intuos BT S Pad pad" Button 8 "key +ctrl +shift O -ctrl -shift"'
 
-alias xournalpp='xournalpp &>/dev/null & disown && wacomKeys'
+# alias xournalpp='xournalpp &>/dev/null & disown && wacomKeys'
 
 alias wacomKeysObsidian='\
   # obsidian undo: \
@@ -116,17 +115,18 @@ alias wacomKeysObsidian='\
 
 # exapmple:
 # deployk apply --dry-run='server' -k ../staging
-alias deployk='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
-alias productionk='kubectl --kubeconfig="/home/ale/bravo/clusters/production" '
+alias deploy-k='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
+alias production-eu-k='kubectl --kubeconfig="/home/ale/bravo/clusters/production-eu" '
 
-# alias k9s_deployement='k9s --context gke_webravo-175810_europe-west2-b_webravo-deployement-cluster'
 alias k9s_deployement='k9s --kubeconfig="/home/ale/bravo/clusters/deployments"'
-# alias k9s_prod='k9s --context gke_webravo-175810_europe-west2-b_webravo-eu-production-cluster'
-alias k9s_prod='k9s --kubeconfig="/home/ale/bravo/clusters/production"'
+alias k9s_production-eu='k9s --kubeconfig="/home/ale/bravo/clusters/production-eu"'
+alias k9s_cluster-1-eu='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-1-eu"'
+alias k9s_cluster-2-us='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-2-us"'
 
 alias k9s_deployement_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/deployments"'
-alias k9s_prod_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/production"'
-
+alias k9s_production_eu_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/production-eu"'
+alias k9s_cluster_1_eu_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/cluster-1-eu"'
+alias k9s_cluster_2_us_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/cluster-2-us"'
 
 alias nppPortForwardProd='gcloud container clusters get-credentials \
   webravo-eu-production-cluster --zone europe-west2-b --project webravo-175810 \
@@ -140,47 +140,54 @@ alias nppPortForwardStaging='gcloud container clusters get-credentials \
   staging --selector="app=api-providers-npps,environment=staging,tier=api" \
   --output jsonpath="{.items[0].metadata.name}") 5002:5002'
 
-function home_backup_t5() {
-    backupSupport="/media/$USER/samsung_t5"
+function home_backup_hd() {
+    backupSupport="$(realpath $1)"
 
     if [ ! -d $backupSupport ]; then
-        return 1
+      echo 'missing backup support'
+      return 1
     fi
-    backupFolder="$backupSupport/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
 
-    wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
-    backupHomeFolder="${backupFolder}/home/$USER/"
+    backupFolder="$(hostname)-$(date -u +"%Y-%m-%d")"
+    backupPath="${backupSupport}/linuxbackup/${backupFolder}"
+
+    wget https://gist.githubusercontent.com/alefontani/b6b2383f8f9bec49ee0aad2873e1da12/raw/7b514531c33de63427f5a11676301a1490545ef3/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
+    
+    backupHomeFolder="${backupPath}/home/$USER/"
     mkdir -p $backupHomeFolder
+    
     rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ $backupHomeFolder
 
-    backupLinuxdataFolder="${backupFolder}/linuxdata/"
-    if [ -d ${backupLinuxdataFolder} ]; then
-      wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
-      mkdir -p $backupLinuxdataFolder
-      rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
-    fi
+    # zip -r ${backupHomeFolder}.zip ${backupHomeFolder}
+
+    # backupLinuxdataFolder="${backupPath}/linuxdata/"
+    # if [ -d ${backupLinuxdataFolder} ]; then
+    #   wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
+    #   mkdir -p $backupLinuxdataFolder
+    #   rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ $backupLinuxdataFolder
+    # fi
 }
 
 function home_backup_hellmachine () {
-    if nmap 192.168.1.104 -PN -p ssh | grep -q open ; then
-        backupSupport="ale@192.168.1.104"
-    elif nmap hellmachine-ale.duckdns.org -PN -p ssh | grep -q open ; then
-        backupSupport="ale@hellmachine-ale.duckdns.org"
-    else
-        return 1
-    fi
+    # if nmap 192.168.1.104 -PN -p ssh | grep -q open ; then
+    #     backupSupport="ale@192.168.1.104"
+    # elif nmap hellmachine-ale.duckdns.org -PN -p ssh | grep -q open ; then
+    #     backupSupport="ale@hellmachine-ale.duckdns.org"
+    # else
+    #     return 1
+    # fi
 
-    backupFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
+    # backupFolder="/media/wdRed1/linuxbackup/$(hostname)-$(date -u +"%Y-%m-%d")"
 
-    wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
-    backupHomeFolder="${backupFolder}/home/$USER/"
-    ssh $backupSupport mkdir -p $backupHomeFolder
-    rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ ${backupSupport}:${backupHomeFolder}
+    # wget  https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
+    # backupHomeFolder="${backupFolder}/home/$USER/"
+    # ssh $backupSupport mkdir -p $backupHomeFolder
+    # rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ ${backupSupport}:${backupHomeFolder}
 
-    wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
-    backupLinuxdataFolder="${backupFolder}/linuxdata/"
-    ssh $backupSupport mkdir -p $backupLinuxdataFolder
-    rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ ${backupSupport}:${backupLinuxdataFolder}
+    # wget https://raw.githubusercontent.com/alefontani/rsync-homedir-excludes/master/rsync-linuxdatadir-excludes.txt -O /var/tmp/ignorelist
+    # backupLinuxdataFolder="${backupFolder}/linuxdata/"
+    # ssh $backupSupport mkdir -p $backupLinuxdataFolder
+    # rsync -aP --exclude-from=/var/tmp/ignorelist /media/$USER/linuxdata/ ${backupSupport}:${backupLinuxdataFolder}
 }
 
 function dsize()
@@ -202,27 +209,56 @@ function sony_wf_1000xm3()
   pacmd set-card-profile $bt_dev_index a2dp_sink
 }
 
-function sony_6300_sd_to_hd()
+# function sony_6300_sd_to_hd()
+# {
+#   local DISK_6300=$1
+
+#   for file in ${DISK_6300}/DCIM/100MSDCF/*; do
+#     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+#     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/
+#   done
+#   for file in ${DISK_6300}/PRIVATE/AVCHD/BDMV/STREAM/*; do
+#     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+#     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
+#   done
+#   for file in ${DISK_6300}/PRIVATE/M4ROOT/CLIP/*; do
+#     creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+#     rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
+#   done
+# }
+
+# function sony_6300_sd_to_hd_2()
+# {
+#   local DISK_6300=$1
+
+#   for file in ${DISK_6300}/* ${DISK_6300}/**/*; do
+#     if [ -d "$file" ]; then
+#       continue
+#     fi
+
+#     local creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
+#     local filename=$(basename -- "$file")
+#     local extension="${filename##*.}"
+#     local dir="/home/ale/Pictures/photos_6300/${creationDate}/${extension}"
+#     mkdir -p ${dir}
+#     rsync -lptgoDv -P ${file} ${dir}/
+#     # cp ${file} ${dir}/
+#   done
+# }
+
+function sony_6300_sd_to_storage()
 {
   local DISK_6300=$1
+  local DESTINATION=$2
 
-  for file in ${DISK_6300}/DCIM/100MSDCF/*; do
-    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
-    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/
-  done
-  for file in ${DISK_6300}/PRIVATE/AVCHD/BDMV/STREAM/*; do
-    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
-    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
-  done
-  for file in ${DISK_6300}/PRIVATE/M4ROOT/CLIP/*; do
-    creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
-    rsync -av -P ${file} /home/ale/Pictures/photos_6300/${creationDate}/videos/
-  done
-}
-
-function sony_6300_sd_to_hd_2()
-{
-  local DISK_6300=$1
+  if [ "$DESTINATION" = "HD" ]; then
+    DESTINATION='/home/ale/Pictures/photos_6300'
+  elif [ "$DESTINATION" = "T5" ]; then
+    DESTINATION='/media/ale/samsung_t5/photos_6300'
+  else
+    echo 'missing destination'
+    return 1
+  fi
 
   for file in ${DISK_6300}/* ${DISK_6300}/**/*; do
     if [ -d "$file" ]; then
@@ -232,10 +268,9 @@ function sony_6300_sd_to_hd_2()
     local creationDate=$(stat -c "%y" ${file} | awk '{print $1}')
     local filename=$(basename -- "$file")
     local extension="${filename##*.}"
-    local dir="/home/ale/Pictures/photos_6300/${creationDate}/${extension}"
+    local dir="${DESTINATION}/${creationDate}/${extension}"
     mkdir -p ${dir}
     rsync -lptgoDv -P ${file} ${dir}/
-    # cp ${file} ${dir}/
   done
 }
 
@@ -249,6 +284,44 @@ function sony_6300_hd_to_t5()
 # GIT
 ###############################################################################
 # alias grc="git log --oneline --all --graph --decorate"
+alias gmnff="git merge --no-ff"
+
+function git_trim_staged_whitespaces()
+{
+  # --- raccogli i file staged in un array ---
+  if [ -n "${ZSH_VERSION-}" ]; then
+    emulate -L zsh
+    typeset -a files
+    staged_raw=$(git diff --cached --name-only -z --diff-filter=ACM)
+    files=("${(0)staged_raw}")   # split NUL → array (zsh)
+  elif [ -n "${BASH_VERSION-}" ]; then
+    files=()
+    while IFS= read -r -d '' f; do
+      files+=("$f")              # accumula in array (bash)
+    done < <(git diff --cached --name-only -z --diff-filter=ACM)
+  else
+    echo "Errore: usa bash o zsh per eseguire questo script." >&2
+    exit 1
+  fi
+
+  # --- se non c'è nulla di staged, esci pulito ---
+  if [ "${#files[@]}" -eq 0 ]; then
+    echo "Nessun file staged da pulire."
+    exit 0
+  fi
+
+  echo "File staged trovati: ${#files[@]}"
+
+  # --- pulizia: solo file testuali; rimuove trailing whitespace (no git add) ---
+  for f in "${files[@]}"; do
+    if [ -f "$f" ]; then
+      echo "Pulizia: $f"
+     git stripspace -s < "$f" > "$f.tmp" && mv "$f.tmp" "$f"
+    fi
+  done
+
+  echo "Fatto. Verifica le modifiche e decidi tu se fare 'git add'."
+}
 
 ###############################################################################
 # BITBAKE
