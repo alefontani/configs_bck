@@ -1,9 +1,16 @@
-format = """$all"""
+format = """$all$fill$cmd_duration$time\n$character"""
 
-right_format = """
-$cmd_duration\
-$time\
-"""
+right_format = """"""
+
+[line_break]
+disabled = true
+
+[fill]
+symbol = " "
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
 
 [sudo]
 style = 'bold green'
@@ -12,9 +19,13 @@ disabled = false
 
 [time]
 disabled = false
-format = '[ $time ]($style) '
+format = '[$time]($style)' 
 time_format = '%T'
 utc_time_offset = 'local'
+style = 'yellow'
+
+[cmd_duration]
+format = '⌛[$duration]($style) - '
 style = 'yellow'
 
 [aws]
@@ -54,7 +65,7 @@ symbol = " "
 symbol = " "
 
 [gcloud]
-disabled = false
+disabled = true
 format = '[$symbol $project]($style)'
 symbol = '️🇬️ '
 style = 'blue'

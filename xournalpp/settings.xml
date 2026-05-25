@@ -6,7 +6,7 @@
   <property name="pressureMultiplier" value="2.57"/>
   <property name="zoomGesturesEnabled" value="true"/>
   <property name="selectedToolbar" value="Right hand Note Taking Copy"/>
-  <property name="lastSavePath" value="/home/ale/Desktop"/>
+  <property name="lastSavePath" value="/home/ale/Downloads"/>
   <property name="lastOpenPath" value="/home/ale/Downloads"/>
   <property name="lastImagePath" value="/home/ale/Downloads"/>
   <property name="edgePanSpeed" value="20"/>
@@ -14,8 +14,8 @@
   <property name="zoomStep" value="10"/>
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="71"/>
-  <property name="mainWndWidth" value="2293"/>
-  <property name="mainWndHeight" value="1375"/>
+  <property name="mainWndWidth" value="1792"/>
+  <property name="mainWndHeight" value="1054"/>
   <property name="maximized" value="true"/>
   <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="true"/>
@@ -133,7 +133,7 @@
   <property name="latexSettings.sourceViewAutoIndent" value="true"/>
   <property name="latexSettings.sourceViewSyntaxHighlight" value="true"/>
   <property name="latexSettings.sourceViewShowLineNumbers" value="false"/>
-  <property name="font" font="Liberation Sans Narrow Condensed" size="12"/>
+  <property name="font" font="FiraCode Nerd Font weight=453" size="8"/>
   <data name="buttonConfig">
     <data name="default">
       <attribute name="color" type="hex" value="ff000000"/>
@@ -250,7 +250,7 @@
     <attribute name="count" type="int" value="9"/>
   </data>
   <data name="tools">
-    <attribute name="current" type="string" value="text"/>
+    <attribute name="current" type="string" value="selectObject"/>
     <data name="drawArrow">
       <attribute name="drawingType" type="string" value="default"/>
     </data>
@@ -271,7 +271,7 @@
     </data>
     <data name="eraser">
       <attribute name="drawingType" type="string" value="default"/>
-      <attribute name="size" type="string" value="MEDIUM"/>
+      <attribute name="size" type="string" value="THIN"/>
       <attribute name="type" type="string" value="whiteout"/>
     </data>
     <data name="hand">
@@ -289,7 +289,7 @@
     </data>
     <data name="pen">
       <attribute name="color" type="hex" value="ff0000"/>
-      <attribute name="drawingType" type="string" value="arrow"/>
+      <attribute name="drawingType" type="string" value="default"/>
       <attribute name="fill" type="int" value="0"/>
       <attribute name="fillAlpha" type="int" value="128"/>
       <attribute name="size" type="string" value="THIN"/>
@@ -325,7 +325,7 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="text">
-      <attribute name="color" type="hex" value="ff0000"/>
+      <attribute name="color" type="hex" value="000000"/>
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="verticalSpace">

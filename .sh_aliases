@@ -36,6 +36,7 @@ alias exa='~/locals/exa/exa'
 alias bw='~/locals/bitwarden/bw'
 alias lzd='docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock\
   -v ~/locals/lazydocker:/.config/jesseduffield/lazydocker lazyteam/lazydocker'
+alias ghostty='~/locals/ghostty/Ghostty'
 
 ###############################################################################
 # ALIAS
@@ -71,6 +72,9 @@ alias nr='npm run'
 alias pn='pnpm run'
 alias pdf_small='gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf'
 alias cod='codium'
+alias code='codium'
+alias vscode='/usr/bin/code'
+
 
 
 #  ---------------------- exa ----------------------
@@ -115,13 +119,15 @@ alias wacomKeysObsidian='\
 
 # exapmple:
 # deployk apply --dry-run='server' -k ../staging
-alias deploy-k='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
+alias deployement-k='kubectl --kubeconfig="/home/ale/bravo/clusters/deployments" '
 alias production-eu-k='kubectl --kubeconfig="/home/ale/bravo/clusters/production-eu" '
+alias cluster_1_eu-k='kubectl --kubeconfig="/home/ale/bravo/clusters/cluster-1-eu" '
+alias cluster_2_us-k='kubectl --kubeconfig="/home/ale/bravo/clusters/cluster-2-us" '
 
 alias k9s_deployement='k9s --kubeconfig="/home/ale/bravo/clusters/deployments"'
-alias k9s_production-eu='k9s --kubeconfig="/home/ale/bravo/clusters/production-eu"'
-alias k9s_cluster-1-eu='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-1-eu"'
-alias k9s_cluster-2-us='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-2-us"'
+alias k9s_production_eu='k9s --kubeconfig="/home/ale/bravo/clusters/production-eu"'
+alias k9s_cluster_1_eu='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-1-eu"'
+alias k9s_cluster_2_us='k9s --kubeconfig="/home/ale/bravo/clusters/cluster-2-us"'
 
 alias k9s_deployement_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/deployments"'
 alias k9s_production_eu_readonly='k9s --readonly --kubeconfig="/home/ale/bravo/clusters/production-eu"'
@@ -152,10 +158,10 @@ function home_backup_hd() {
     backupPath="${backupSupport}/linuxbackup/${backupFolder}"
 
     wget https://gist.githubusercontent.com/alefontani/b6b2383f8f9bec49ee0aad2873e1da12/raw/7b514531c33de63427f5a11676301a1490545ef3/rsync-homedir-excludes.txt -O /var/tmp/ignorelist
-    
+
     backupHomeFolder="${backupPath}/home/$USER/"
     mkdir -p $backupHomeFolder
-    
+
     rsync -aP --exclude-from=/var/tmp/ignorelist /home/$USER/ $backupHomeFolder
 
     # zip -r ${backupHomeFolder}.zip ${backupHomeFolder}
